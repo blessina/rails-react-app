@@ -1,8 +1,9 @@
-// import '../styles/tracks.scss';
+import '../styles/tracks.css';
 
 import React, { Component } from 'react';
 import { API_URL } from '../../constants';
 import axios from 'axios';
+import TrackImage from '../components/TrackImage';
 
 // fix CSRF error raised by Rails
 if (document.querySelector('meta[name="csrf-token"]')) {
@@ -33,7 +34,6 @@ class TracksContainer extends Component {
       url: API_URL,
     })
       .then((response) => {
-        console.log(response.data)
         this.setState({
           tracks: response.data
         })
@@ -46,13 +46,11 @@ class TracksContainer extends Component {
     } = this.state;
 
     return (
-      <div className="learning-path__container">
+      <div className="tracks__container">
         {tracks.map((track) => (
-          <div key={track.id} className = 'track_container'>
-            <h2>{track.title}</h2>
-            <p>{track.description}</p>
-          </div>
-
+          <TrackImage key={track.id}
+            track={track}
+          />
         ))}
       </div>
     );
